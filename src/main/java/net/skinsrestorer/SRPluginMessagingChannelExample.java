@@ -153,8 +153,7 @@ public class SRPluginMessagingChannelExample extends JavaPlugin implements Plugi
                     p.sendMessage("You Don't have permissions for clear");
                     return false;
                 }
-            }
-            if (args[0].equalsIgnoreCase("update")) {
+            } else if (args[0].equalsIgnoreCase("update")) {
                 if (sender.hasPermission("skinsrestorer.command.update")) {
                     p.getName();
 
@@ -164,9 +163,8 @@ public class SRPluginMessagingChannelExample extends JavaPlugin implements Plugi
                     p.sendMessage("You Don't have permissions for clear");
                     return false;
                 }
-            }
 
-                    // command <name>
+                // command <name>
             } else if (sender.hasPermission("skinsrestorer.command.set")) {
                 final String skin = args[0];
 
@@ -176,7 +174,7 @@ public class SRPluginMessagingChannelExample extends JavaPlugin implements Plugi
                 p.sendMessage("You Don't have permissions for set");
                 return false;
             }
-
+        }
 
             // command Set <name>
             if (args.length == 2 && args[0].equalsIgnoreCase("set")) {
@@ -210,7 +208,7 @@ public class SRPluginMessagingChannelExample extends JavaPlugin implements Plugi
                 Player targetPlayer = Bukkit.getPlayer(target);
 
                 if (targetPlayer == null) {
-                    sender.sendMessage("Target player '" + target + "' is not online." );
+                    sender.sendMessage("Target player '" + target + "' is not online.");
                     return true;
                 }
 
@@ -261,6 +259,8 @@ public class SRPluginMessagingChannelExample extends JavaPlugin implements Plugi
             } else {
                 p.sendMessage("You don't have permissions to do that");
             }
+
+
 
         return true;
     }
