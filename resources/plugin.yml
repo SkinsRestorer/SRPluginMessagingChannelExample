@@ -1,0 +1,10 @@
+name: ${project.name}
+main: net.skinsrestorer.SRPluginMessagingChannelExample
+version: ${project.version}
+description: ${project.description}
+website: https://skinsrestorer.net/
+authors: [xknat]
+
+commands:
+  srpmce:
+    description: SkinsRestorer PMCE command
