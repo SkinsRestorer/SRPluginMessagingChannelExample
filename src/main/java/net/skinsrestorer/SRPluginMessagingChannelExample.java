@@ -91,6 +91,19 @@ public class SRPluginMessagingChannelExample extends JavaPlugin implements Plugi
         }
     }
 
+    public void requestSkinUpdateFromBungeeCord(Player p) {
+        try {
+            ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+            DataOutputStream out = new DataOutputStream(bytes);
+
+            out.writeUTF("updateSkin");
+            out.writeUTF(p.getName());
+
+            p.sendPluginMessage(this, "sr:messagechannel", bytes.toByteArray());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     public void requestSkinSetFromBungeeCord(Player p, String skin) {
         try {
@@ -140,7 +153,20 @@ public class SRPluginMessagingChannelExample extends JavaPlugin implements Plugi
                     p.sendMessage("You Don't have permissions for clear");
                     return false;
                 }
-                // command <name>
+            }
+            if (args[0].equalsIgnoreCase("update")) {
+                if (sender.hasPermission("skinsrestorer.command.update")) {
+                    p.getName();
+
+                    requestSkinUpdateFromBungeeCord(p);
+                    return true;
+                } else {
+                    p.sendMessage("You Don't have permissions for clear");
+                    return false;
+                }
+            }
+
+                    // command <name>
             } else if (sender.hasPermission("skinsrestorer.command.set")) {
                 final String skin = args[0];
 
