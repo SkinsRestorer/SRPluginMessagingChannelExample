@@ -153,6 +153,7 @@ public class SRPluginMessagingChannelExample extends JavaPlugin implements Plugi
                     p.sendMessage("You Don't have permissions for clear");
                     return false;
                 }
+                // command <update>
             } else if (args[0].equalsIgnoreCase("update")) {
                 if (sender.hasPermission("skinsrestorer.command.update")) {
                     p.getName();
@@ -176,90 +177,89 @@ public class SRPluginMessagingChannelExample extends JavaPlugin implements Plugi
             }
         }
 
-            // command Set <name>
-            if (args.length == 2 && args[0].equalsIgnoreCase("set")) {
-                if (sender.hasPermission("skinsrestorer.playercmds")) {
-                    final String skin = args[1];
+        // command Set <name>
+        if (args.length == 2 && args[0].equalsIgnoreCase("set")) {
+            if (sender.hasPermission("skinsrestorer.playercmds")) {
+                final String skin = args[1];
 
-                    requestSkinSetFromBungeeCord(p, skin);
-                    return true;
-                } else {
-                    p.sendMessage("You Don't have permissions for set <name>");
-                    return false;
-                }
-            }
-
-            // command url <name>
-            if (args.length == 2 && args[0].equalsIgnoreCase("url")) {
-                if (sender.hasPermission("skinsrestorer.playercmds")) {
-                    final String url = args[1];
-
-                    // TODO: add url
-                    return true;
-                } else {
-                    p.sendMessage("You Don't have permissions for set <name>");
-                    return false;
-                }
-            }
-
-            // command clear <player>
-            if (args.length == 2 && args[0].equalsIgnoreCase("clear")) {
-                String target = args[1];
-                Player targetPlayer = Bukkit.getPlayer(target);
-
-                if (targetPlayer == null) {
-                    sender.sendMessage("Target player '" + target + "' is not online.");
-                    return true;
-                }
-
-                requestSkinClearFromBungeeCord(targetPlayer);
-            }
-
-            //skin set other
-            if (args.length > 2 && args[0].equalsIgnoreCase("set")) {
-                if (sender.hasPermission("skinsrestorer.command.set.other")) {
-
-                    StringBuilder sb = new StringBuilder();
-                    for (int i = 2; i < args.length; i++)
-                        if (args.length == 3)
-                            sb.append(args[i]);
-                        else if (i + 1 == args.length)
-                            sb.append(args[i]);
-                        else
-                            sb.append(args[i]).append(" ");
-
-                    final String skin = sb.toString();
-                    Player player = Bukkit.getPlayer(args[1]);
-
-                    if (player == null)
-                        for (Player pl : Bukkit.getOnlinePlayers())
-                            if (pl.getName().startsWith(args[1])) {
-                                player = pl;
-                                break;
-                            }
-
-                    if (player == null) {
-                        sender.sendMessage("player " + player + " is not online");
-                        return true;
-                    }
-                    final Player targetPlayer = player;
-                    requestSkinSetFromBungeeCord(targetPlayer, skin);
-
-                } else {
-                    p.sendMessage("You Don't have permissions for set <name> <player>");
-                    return false;
-                }
-            }
-
-            // Skin Help
-            if (p.hasPermission("skinsrestorer.playercmds")) {
-                p.sendMessage("help");
-                if (p.hasPermission("skinsrestorer.cmds"))
-                    p.sendMessage("adminhelp");
+                requestSkinSetFromBungeeCord(p, skin);
+                return true;
             } else {
-                p.sendMessage("You don't have permissions to do that");
+                p.sendMessage("You Don't have permissions for set <name>");
+                return false;
+            }
+        }
+
+        // command url <name>
+        if (args.length == 2 && args[0].equalsIgnoreCase("url")) {
+            if (sender.hasPermission("skinsrestorer.playercmds")) {
+                final String url = args[1];
+
+                // TODO: add url
+                return true;
+            } else {
+                p.sendMessage("You Don't have permissions for set <name>");
+                return false;
+            }
+        }
+
+        // command clear <player>
+        if (args.length == 2 && args[0].equalsIgnoreCase("clear")) {
+            String target = args[1];
+            Player targetPlayer = Bukkit.getPlayer(target);
+
+            if (targetPlayer == null) {
+                sender.sendMessage("Target player '" + target + "' is not online.");
+                return true;
             }
 
+            requestSkinClearFromBungeeCord(targetPlayer);
+        }
+
+        //skin set other
+        if (args.length > 2 && args[0].equalsIgnoreCase("set")) {
+            if (sender.hasPermission("skinsrestorer.command.set.other")) {
+
+                StringBuilder sb = new StringBuilder();
+                for (int i = 2; i < args.length; i++)
+                    if (args.length == 3)
+                        sb.append(args[i]);
+                    else if (i + 1 == args.length)
+                        sb.append(args[i]);
+                    else
+                        sb.append(args[i]).append(" ");
+
+                final String skin = sb.toString();
+                Player player = Bukkit.getPlayer(args[1]);
+
+                if (player == null)
+                    for (Player pl : Bukkit.getOnlinePlayers())
+                        if (pl.getName().startsWith(args[1])) {
+                            player = pl;
+                            break;
+                        }
+
+                if (player == null) {
+                    sender.sendMessage("player " + player + " is not online");
+                    return true;
+                }
+                final Player targetPlayer = player;
+                requestSkinSetFromBungeeCord(targetPlayer, skin);
+
+            } else {
+                p.sendMessage("You Don't have permissions for set <name> <player>");
+                return false;
+            }
+        }
+
+        // Skin Help
+        if (p.hasPermission("skinsrestorer.playercmds")) {
+            p.sendMessage("help");
+            if (p.hasPermission("skinsrestorer.cmds"))
+                p.sendMessage("adminhelp");
+        } else {
+            p.sendMessage("You don't have permissions to do that");
+        }
 
 
         return true;
