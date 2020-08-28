@@ -176,7 +176,7 @@ public class SRPluginMessagingChannelExample extends JavaPlugin implements Plugi
                 p.sendMessage("You Don't have permissions for set");
                 return false;
             }
-        }
+
 
             // command Set <name>
             if (args.length == 2 && args[0].equalsIgnoreCase("set")) {
